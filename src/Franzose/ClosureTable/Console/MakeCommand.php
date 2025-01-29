@@ -1,7 +1,6 @@
 <?php
 namespace Franzose\ClosureTable\Console;
 
-use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Composer;
 use Symfony\Component\Console\Input\InputOption;
@@ -16,8 +15,6 @@ use Franzose\ClosureTable\Extensions\Str as ExtStr;
  */
 class MakeCommand extends Command
 {
-    use AppNamespaceDetectorTrait;
-
     /**
      * The console command name.
      *
@@ -152,7 +149,7 @@ class MakeCommand extends Command
 
         $lastnsdelim = strrpos($input[1], '\\');
 
-        $this->options[$options[0][0]] = $input[0] ?: rtrim($this->getAppNamespace(), '\\');
+        $this->options[$options[0][0]] = $input[0] ?: rtrim($this->getLaravel()->getNamespace(), '\\');
         $this->options[$options[1][0]] = substr($input[1], $lastnsdelim);
         $this->options[$options[2][0]] = $input[2] ?: ExtStr::tableize($input[1]);
         $this->options[$options[3][0]] = $input[3] ?: $this->options[$options[1][0]] . 'Closure';
